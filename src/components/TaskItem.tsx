@@ -56,7 +56,7 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
   }
 
   return (
-    <div
+    <li
       className={clsx(
         "bg-white rounded-xl border border-slate-200 p-4 shadow-sm transition-opacity",
         task.completed && "opacity-60",
@@ -67,6 +67,7 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
         <Checkbox.Root
           checked={task.completed}
           onCheckedChange={() => onToggle(task.id)}
+          aria-label={`Mark "${task.title}" as ${task.completed ? "incomplete" : "complete"}`}
           className="mt-0.5 w-4 h-4 rounded border border-slate-300 bg-white flex items-center justify-center shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-400 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
         >
           <Checkbox.Indicator>
@@ -92,9 +93,13 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
               <input
                 type="text"
                 value={editedTitle}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") cancelEdit();
+                }}
                 onChange={(e) => setEditedTitle(e.target.value)}
                 autoFocus
-                className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                aria-label="Edit task title"
+                className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
               />
               <div className="grid grid-cols-2 gap-2">
                 {/* Radix Select for edit priority */}
@@ -102,7 +107,10 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
                   value={editedPriority}
                   onValueChange={(v) => setEditedPriority(v as Priority)}
                 >
-                  <Select.Trigger className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400">
+                  <Select.Trigger
+                    aria-label="Edit priority"
+                    className="w-full flex items-center justify-between px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+                  >
                     <Select.Value />
                     <Select.Icon>
                       <svg
@@ -140,7 +148,8 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
                   type="date"
                   value={editedDueDate}
                   onChange={(e) => setEditedDueDate(e.target.value)}
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                  aria-label="Edit due date"
+                  className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
                 />
               </div>
               <div className="flex gap-2">
@@ -180,7 +189,7 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
                   {task.priority}
                 </span>
                 {task.dueDate && (
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-600">
                     Due: {formattedDueDate}
                   </span>
                 )}
@@ -204,21 +213,23 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
             <button
               type="button"
               onClick={() => setIsEditing(true)}
-              className="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+              aria-label={`Edit task: ${task.title}`}
+              className="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             >
               Edit
             </button>
             <button
               type="button"
               onClick={() => onDelete(task.id)}
-              className="px-3 py-1.5 text-xs font-medium rounded-lg border border-red-100 text-red-500 hover:bg-red-50 transition-colors"
+              aria-label={`Delete task: ${task.title}`}
+              className="px-3 py-1.5 text-xs font-medium rounded-lg border border-red-100 text-red-500 hover:bg-red-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
             >
               Delete
             </button>
           </div>
         )}
       </div>
-    </div>
+    </li>
   );
 }
 

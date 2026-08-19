@@ -18,7 +18,7 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }: TaskListProps) {
     return (
       <div className="text-center py-12">
         <p className="text-base font-medium text-slate-500">No tasks found</p>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Try changing the filters or add a new task.
         </p>
       </div>
@@ -26,7 +26,7 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }: TaskListProps) {
   }
 
   return (
-    <div className="space-y-2">
+    <ul className="space-y-2 list-none p-0 m-0" aria-label="Tasks">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
@@ -36,7 +36,7 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }: TaskListProps) {
           onEdit={onEdit}
         />
       ))}
-    </div>
+    </ul>
   );
 }
 

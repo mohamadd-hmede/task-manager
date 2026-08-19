@@ -23,8 +23,14 @@ function TaskForm({ onAdd }: TaskFormProps) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-slate-900 mb-4 text-left">
+    <section
+      className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm"
+      aria-labelledby="add-task-heading"
+    >
+      <h2
+        id="add-task-heading"
+        className="text-base font-semibold text-slate-900 mb-4 text-left"
+      >
         Add New Task
       </h2>
       <form onSubmit={handleSubmit} className="space-y-3">
@@ -38,26 +44,34 @@ function TaskForm({ onAdd }: TaskFormProps) {
           <input
             id="task-title"
             type="text"
+            required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Task title..."
-            className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:text-slate-500"
+            className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:text-slate-500"
           />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1">
-            <Label.Root className="text-sm font-medium text-slate-800 block text-left">
+            <Label.Root
+              id="form-priority-label"
+              className="text-sm font-medium text-slate-800 block text-left"
+            >
               Priority
             </Label.Root>
             <Select.Root
               value={priority}
               onValueChange={(v) => setPriority(v as Priority)}
             >
-              <Select.Trigger className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <Select.Trigger
+                aria-labelledby="form-priority-label"
+                className="w-full flex items-center justify-between px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+              >
                 <Select.Value />
                 <Select.Icon>
                   <svg
                     className="w-4 h-4 text-slate-400"
+                    aria-hidden="true"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -100,18 +114,18 @@ function TaskForm({ onAdd }: TaskFormProps) {
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+              className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
           </div>
         </div>
         <button
           type="submit"
-          className="w-full py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+          className="w-full py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
         >
-          + Add Task
+          Add Task
         </button>
       </form>
-    </div>
+    </section>
   );
 }
 

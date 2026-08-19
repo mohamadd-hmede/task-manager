@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto space-y-4">
+      <main className="max-w-2xl mx-auto space-y-4" aria-label="Task Manager">
         <Header completedCount={completedCount} totalCount={totalCount} />
         <FilterBar
           filter={filter}
@@ -97,7 +97,7 @@ function App() {
           onDelete={deleteTask}
           onEdit={editTask}
         />
-      </div>
+      </main>
     </div>
   );
 }

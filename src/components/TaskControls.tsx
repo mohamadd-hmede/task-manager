@@ -20,14 +20,19 @@ function RadixSelect<T extends string>({
   value,
   onValueChange,
   options,
+  ariaLabel,
 }: {
   value: T;
   onValueChange: (v: T) => void;
   options: { value: T; label: string }[];
+  ariaLabel?: string;
 }) {
   return (
     <Select.Root value={value} onValueChange={onValueChange}>
-      <Select.Trigger className="w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400">
+      <Select.Trigger
+        aria-label={ariaLabel}
+        className="w-full flex items-center justify-between px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+      >
         <Select.Value />
         <Select.Icon>
           <svg
@@ -91,7 +96,7 @@ function TaskControls({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search tasks..."
-          className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:text-slate-500"
+          className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 placeholder:text-slate-500"
         />
       </div>
       <div className="grid grid-cols-3 gap-3">
@@ -102,6 +107,7 @@ function TaskControls({
           <RadixSelect
             value={priorityFilter}
             onValueChange={onPriorityFilterChange}
+            ariaLabel="Filter by priority"
             options={[
               { value: "all", label: "All" },
               { value: "high", label: "High" },
@@ -122,7 +128,7 @@ function TaskControls({
             type="date"
             value={dateFilter}
             onChange={(e) => onDateFilterChange(e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+            className="w-full px-3 py-2 text-sm text-slate-900 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
           />
         </div>
         <div className="space-y-1">
@@ -132,6 +138,7 @@ function TaskControls({
           <RadixSelect
             value={sortOption}
             onValueChange={onSortChange}
+            ariaLabel="Sort tasks by"
             options={[
               { value: "newest", label: "Newest" },
               { value: "oldest", label: "Oldest" },
@@ -145,7 +152,7 @@ function TaskControls({
         <button
           type="button"
           onClick={onResetFilters}
-          className="px-4 py-1.5 text-sm font-medium rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition-colors"
+          className="px-4 py-1.5 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
         >
           Reset filters
         </button>

@@ -114,6 +114,42 @@ The previous custom CSS interface was replaced with Tailwind CSS and accessible 
 | `TaskList.tsx`     | Task list and empty state                     |
 | `TaskItem.tsx`     | Individual task with edit and delete controls |
 
+### Version 4 — Accessibility Pass
+
+The fourth version improves accessibility across the existing interface through semantic HTML, ARIA attributes, keyboard support, visible focus states, and improved colour contrast.
+
+#### Semantic HTML
+
+- Replaced generic wrappers with semantic elements such as:
+  - `<header>`
+  - `<main>`
+  - `<nav>`
+  - `<section>`
+  - `<ul>`
+  - `<li>`
+- Connected sections to headings using `aria-labelledby`
+
+#### Labels & ARIA
+
+- Added accessible labels to progress indicators and task checkboxes
+- Added labels to Edit and Delete controls
+- Used `aria-labelledby` with Radix Select triggers
+- Added accessible labels to edit-state inputs
+- Added `aria-pressed` to communicate the active task filter
+- Added `aria-hidden="true"` to decorative SVG icons
+
+#### Keyboard Navigation
+
+- Ensured interactive elements are reachable and operable using the keyboard
+- Added Escape-key support to cancel task editing
+- Added visible `focus-visible` styles to interactive controls
+
+#### Colour Contrast
+
+- Improved low-contrast secondary text
+- Improved text colours for form inputs and select controls
+- Adjusted interface colours to improve readability and WCAG AA compliance
+
 ---
 
 ## Screenshot

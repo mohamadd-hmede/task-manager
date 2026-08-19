@@ -10,7 +10,7 @@ function Header({ completedCount, totalCount }: HeaderProps) {
     totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-3 shadow-sm text-left">
+    <header className="bg-white rounded-xl border border-slate-200 p-6 space-y-3 shadow-sm text-left">
       <div>
         <h1 className="text-xl font-bold tracking-tight text-slate-900">
           Task Manager
@@ -20,7 +20,7 @@ function Header({ completedCount, totalCount }: HeaderProps) {
         </p>
       </div>
       {totalCount === 0 ? (
-        <p className="text-sm text-slate-400">No tasks yet — add one below.</p>
+        <p className="text-sm text-slate-500">No tasks yet — add one below.</p>
       ) : (
         <div className="space-y-1">
           <div className="flex justify-between text-sm">
@@ -32,6 +32,7 @@ function Header({ completedCount, totalCount }: HeaderProps) {
           <Progress.Root
             className="h-2 w-full bg-slate-200 rounded-full overflow-hidden"
             value={percentage}
+            aria-label={`${percentage}% of tasks completed`}
           >
             <Progress.Indicator
               className="h-full bg-blue-600 rounded-full transition-all duration-500"
@@ -40,7 +41,7 @@ function Header({ completedCount, totalCount }: HeaderProps) {
           </Progress.Root>
         </div>
       )}
-    </div>
+    </header>
   );
 }
 
