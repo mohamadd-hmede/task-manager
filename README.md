@@ -80,27 +80,49 @@ Task state and actions were moved out of `App.tsx` into a centralized state mana
 - Provider pattern
 - Centralized client state management
 
+### Version 3 — UI Rebuild with Radix UI & Tailwind CSS
+
+The third version rebuilds the application's presentation layer while keeping the existing state management, logic, and TypeScript types intact.
+
+The previous custom CSS interface was replaced with Tailwind CSS and accessible Radix UI primitives.
+
+#### Implemented
+
+- Installed Tailwind CSS v4 using the `@tailwindcss/vite` plugin
+- Added Radix UI component primitives
+- Rebuilt the main UI components using Radix UI and Tailwind CSS
+- Removed the previous custom CSS
+- Preserved the existing application logic and state management
+
+#### Radix UI Components
+
+| Component                  | Purpose                       |
+| -------------------------- | ----------------------------- |
+| `@radix-ui/react-checkbox` | Task completion toggle        |
+| `@radix-ui/react-select`   | Priority and sorting controls |
+| `@radix-ui/react-label`    | Accessible form labels        |
+| `@radix-ui/react-progress` | Task completion progress      |
+
+#### Components Rebuilt
+
+| Component          | Purpose                                       |
+| ------------------ | --------------------------------------------- |
+| `Header.tsx`       | Application title and completion progress     |
+| `FilterBar.tsx`    | All, Active, and Completed filters            |
+| `TaskForm.tsx`     | New task creation form                        |
+| `TaskControls.tsx` | Search, filtering, and sorting controls       |
+| `TaskList.tsx`     | Task list and empty state                     |
+| `TaskItem.tsx`     | Individual task with edit and delete controls |
+
 ---
 
-## Screenshots
+## Screenshot
 
 ### Main Dashboard
 
 The main interface displaying the task list, progress summary, task creation form, and filtering controls.
 
 ![Main Dashboard](screenshots/home.png)
-
-### Edit Task
-
-Edit an existing task by updating its title, priority, and due date.
-
-![Edit Task](screenshots/edit-task.png)
-
-### Search, Filter & Sort
-
-Search tasks by title, filter them by priority or due date, and sort them using different options.
-
-![Filters and Sort](screenshots/filters.png)
 
 ---
 

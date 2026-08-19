@@ -14,25 +14,28 @@ type TaskListProps = {
 };
 
 function TaskList({ tasks, onToggle, onDelete, onEdit }: TaskListProps) {
+  if (tasks.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-base font-medium text-slate-500">No tasks found</p>
+        <p className="text-sm text-slate-400">
+          Try changing the filters or add a new task.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="task-list">
-      {tasks.length === 0 ? (
-        <div className="empty-message">
-          <span className="empty-icon">✓</span>
-          <h3>No tasks found</h3>
-          <p>Try changing the filters or add a new task.</p>
-        </div>
-      ) : (
-        tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onToggle={onToggle}
-            onDelete={onDelete}
-            onEdit={onEdit}
-          />
-        ))
-      )}
+    <div className="space-y-2">
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onToggle={onToggle}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
+      ))}
     </div>
   );
 }
