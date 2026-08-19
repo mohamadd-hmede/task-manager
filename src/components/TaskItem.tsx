@@ -3,6 +3,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import * as Select from "@radix-ui/react-select";
 import clsx from "clsx";
 import type { Priority, Task } from "../types/Task";
+import { Link } from "react-router-dom";
 
 type TaskItemProps = {
   task: Task;
@@ -177,7 +178,9 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
                   task.completed && "line-through text-slate-400",
                 )}
               >
-                {task.title}
+                <Link to={`/tasks/${task.id}`} className="hover:underline">
+                  {task.title}
+                </Link>
               </p>
               <div className="flex flex-wrap items-center gap-2 mt-1">
                 <span

@@ -150,6 +150,65 @@ The fourth version improves accessibility across the existing interface through 
 - Improved text colours for form inputs and select controls
 - Adjusted interface colours to improve readability and WCAG AA compliance
 
+### Version 5 — RTK Query, REST API & Routing
+
+The fifth version moves the application from locally managed task data to server state backed by a REST API.
+
+RTK Query handles data fetching, mutations, caching, loading states, and errors, while React Router provides multi-page navigation.
+
+#### Implemented
+
+- Added Redux Toolkit
+- Configured the Redux store with `configureStore`
+- Created an RTK Query API slice using `createApi`
+- Used `fetchBaseQuery` for API communication
+- Added auto-generated query and mutation hooks
+- Added RTK Query caching
+- Added cache invalidation with `providesTags` and `invalidatesTags`
+- Added loading and error states
+- Added React Router v6
+- Added task list and individual task detail routes
+- Connected task operations to HTTP requests
+- Added a local REST API using `json-server`
+
+#### State Evolution
+
+| Before                        | Version 5                           |
+| ----------------------------- | ----------------------------------- |
+| Context + `useReducer`        | Server state managed by RTK Query   |
+| Local task data               | Tasks fetched from a REST API       |
+| Single-page interface         | Multi-page routing                  |
+| Local state mutations         | HTTP POST / PATCH / DELETE requests |
+| No server loading/error state | Loading and error handling          |
+
+#### Routes
+
+| Route        | Page        | Description                                                |
+| ------------ | ----------- | ---------------------------------------------------------- |
+| `/`          | Task List   | View, create, edit, delete, search, filter, and sort tasks |
+| `/tasks/:id` | Task Detail | View the full details of an individual task                |
+
+#### REST API
+
+The final version uses `json-server` to provide a local REST API from `db.json`.
+
+| Method   | Endpoint     | Description         |
+| -------- | ------------ | ------------------- |
+| `GET`    | `/tasks`     | Fetch all tasks     |
+| `GET`    | `/tasks/:id` | Fetch a single task |
+| `POST`   | `/tasks`     | Create a task       |
+| `PATCH`  | `/tasks/:id` | Update a task       |
+| `DELETE` | `/tasks/:id` | Delete a task       |
+
+The API runs locally on port `3001`.
+
+#### Technologies Added
+
+- Redux Toolkit
+- RTK Query
+- React Router v6
+- json-server
+
 ---
 
 ## Screenshot
