@@ -1,79 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import TaskForm from "./components/TaskForm";
 import type { Filter } from "./types/Filter";
-import type { Priority, Task } from "./types/Task";
+import type { Priority } from "./types/Task";
 import Header from "./components/Header";
 import TaskList from "./components/TaskList";
 import FilterBar from "./components/FilterBar";
 import TaskControls from "./components/TaskControls";
 import type { SortOption } from "./types/SortOption";
+import { useTasks } from "./hooks/useTasks";
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>(() => {
-    const savedTasks = localStorage.getItem("tasks");
-
-    if (savedTasks) {
-      const parsedTasks: Task[] = JSON.parse(savedTasks);
-
-      return parsedTasks.map((task) => ({
-        ...task,
-        priority: task.priority ?? "medium",
-      }));
-    }
-
-    return [
-      {
-        id: 1,
-        title: "Learn React components",
-        completed: false,
-        priority: "high",
-      },
-      {
-        id: 2,
-        title: "Practice TypeScript",
-        completed: true,
-        priority: "medium",
-      },
-    ];
-  });
+  const {
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+    editTask,
+    clearCompletedTasks,
+  } = useTasks();
 
   const [filter, setFilter] = useState<Filter>("all");
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
   const [search, setSearch] = useState("");
-
-  function toggleTask(id: number) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
-      ),
-    );
-  }
-
   const [priorityFilter, setPriorityFilter] = useState<"all" | Priority>("all");
-
   const [sortOption, setSortOption] = useState<SortOption>("newest");
-
   const [dateFilter, setDateFilter] = useState("");
-
-  function deleteTask(id: number) {
-    setTasks(tasks.filter((task) => task.id !== id));
-  }
-
-  function addTask(title: string, priority: Priority, dueDate: string) {
-    const newTask: Task = {
-      id: Date.now(),
-      title,
-      completed: false,
-      priority,
-      dueDate: dueDate || undefined,
-    };
-
-    setTasks([...tasks, newTask]);
-  }
 
   const filteredTasks = tasks.filter((task) => {
     const matchesSearch = task.title
@@ -138,31 +89,8 @@ function App() {
   });
 
   const completedCount = tasks.filter((task) => task.completed).length;
+
   const totalCount = tasks.length;
-
-  function editTask(
-    id: number,
-    newTitle: string,
-    priority: Priority,
-    dueDate: string,
-  ) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              title: newTitle,
-              priority,
-              dueDate: dueDate || undefined,
-            }
-          : task,
-      ),
-    );
-  }
-
-  function clearCompletedTasks() {
-    setTasks(tasks.filter((task) => !task.completed));
-  }
 
   function resetFilters() {
     setSearch("");
@@ -173,15 +101,17 @@ function App() {
 
   return (
     <main className="app">
-      {" "}
       <Header completedCount={completedCount} totalCount={totalCount} />
+
       <FilterBar
         filter={filter}
         completedCount={completedCount}
         onFilterChange={setFilter}
         onClearCompleted={clearCompletedTasks}
       />
+
       <TaskForm onAdd={addTask} />
+
       <TaskControls
         search={search}
         priorityFilter={priorityFilter}
@@ -199,6 +129,7 @@ function App() {
           sortOption !== "newest"
         }
       />
+
       <TaskList
         tasks={sortedTasks}
         onToggle={toggleTask}

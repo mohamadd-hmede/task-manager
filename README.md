@@ -56,6 +56,30 @@ The first version establishes the core Task Manager as a multi-component React a
 - CSS
 - Local Storage API
 
+### Version 2 — State Management Refactor
+
+The second version improves the application's state architecture while preserving the existing Task Manager functionality.
+
+Task state and actions were moved out of `App.tsx` into a centralized state management structure.
+
+#### Implemented
+
+- Added React Context for sharing task state and actions
+- Replaced scattered task state logic with `useReducer`
+- Created a custom `useTasks` hook
+- Added a `TaskProvider` for providing task state throughout the application
+- Extracted task actions into a separate reducer
+- Preserved Local Storage persistence
+- Kept existing search, filter, sort, CRUD, and completion functionality
+
+#### Concepts Practised
+
+- React Context
+- `useReducer`
+- Custom hooks
+- Provider pattern
+- Centralized client state management
+
 ---
 
 ## Screenshots
